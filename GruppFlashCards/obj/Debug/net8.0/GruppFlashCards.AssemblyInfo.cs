@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GruppFlashCards")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e732d242399e5ff9b67804ee344c138e8016cdb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba7a93ff6c6a12c412edb603c152faf5fab78c00")]
 [assembly: System.Reflection.AssemblyProductAttribute("GruppFlashCards")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GruppFlashCards")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
