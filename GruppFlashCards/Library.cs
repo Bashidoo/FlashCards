@@ -9,11 +9,11 @@ namespace GruppFlashCards
     public class Library
     {
 
-
+        public List <FlashCard> flashcards { get; set; } = new List <FlashCard> ();
         public List <Users> users { get; set; } = new List <Users> ();
         // implement functions and create instances of Users and FlashCards as a list.
 
-
+        
 
         // Show Card
 
