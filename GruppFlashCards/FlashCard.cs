@@ -21,5 +21,13 @@ namespace GruppFlashCards
         {
             
         }
+        public FlashCard(int flashcardid, string flashcardname, string flashcarddescription, DateOnly flashcardinterval)
+        {
+            flashcardid = FlashCardID;
+            flashcardname = flashCardName;
+            flashcarddescription = flashCardDescription;
+            flashcardinterval = flashCardInterval;
+       
+        }
     }
 }

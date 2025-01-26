@@ -24,7 +24,10 @@ namespace GruppFlashCards
         }
 
 
-
+        public Users()
+        {
+            
+        }
 
     }
 }

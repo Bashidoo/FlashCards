@@ -8,5 +8,6 @@ namespace GruppFlashCards
 {
     public class Menu
     {
+
     }
 }
