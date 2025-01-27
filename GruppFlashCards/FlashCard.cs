@@ -9,11 +9,17 @@ namespace GruppFlashCards
     public class FlashCard
     {
         private static readonly Random random = new Random();
-        public int FlashCardID { get; set; }
+        public int flashCardID { get; set; }
 
         public string flashCardName { get; set; }
 
         public string flashCardDescription { get; set; }
+
+        public string flashCardQuestion { get; set; }
+
+        public string flashCardAnswer { get; set; }
+
+        public int flashCardDifficultyLevel { get; set; }
 
         public DateOnly flashCardInterval { get; set; }
 
@@ -21,13 +27,22 @@ namespace GruppFlashCards
         {
             
         }
-        public FlashCard(int flashcardid, string flashcardname, string flashcarddescription, DateOnly flashcardinterval)
+        public FlashCard(string? flashcardname, string? flashcarddescription, string? flashcardquestion, string? flashcardanswer)
         {
-            flashcardid = FlashCardID;
+            flashCardID = random.Next(10, 100001);
             flashcardname = flashCardName;
             flashcarddescription = flashCardDescription;
-            flashcardinterval = flashCardInterval;
-       
+            flashcardquestion = flashCardQuestion;
+            flashcardanswer = flashCardAnswer;
+            flashCardDifficultyLevel = 1;
+            flashCardInterval = DateOnly.FromDateTime(DateTime.Now);
+
+
+        }
+
+        public bool IsDue()
+        {
+            return DateOnly.FromDateTime(DateTime.Now) >= flashCardInterval;
         }
     }
 }

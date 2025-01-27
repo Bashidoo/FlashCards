@@ -1,0 +1,6 @@
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.csproj.AssemblyReference.cache
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.AssemblyInfoInputs.cache
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.AssemblyInfo.cs
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.csproj.CoreCompileInputs.cache
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.sourcelink.json

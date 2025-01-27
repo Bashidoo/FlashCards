@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,25 +19,61 @@ namespace GruppFlashCards
 
         // Show Card
 
-        // Choose card
+        public void ShowFlashCards()
+        {
 
-        // Moving Card to System.
+            if (!flashcards.Any())
+            {
+                AnsiConsole.WriteLine("[red]No flash cards found![/]");
+                return;
+            }
+
+        }
+        // Reviewing card
+
+        public void ReviewFlashCards()
+        {
+            
+            if (!flashcards.Any())
+            {
+                AnsiConsole.WriteLine("[red]No flash cards found![/]");
+            }
+            else
+            {
+                // Add Logic
+            }
+        }
+
+        
+
+        public void AddFlashCard(FlashCard card)
+        {
+            if (card != null)
+            {
+                flashcards.Add (card);
+            }
+            else
+            {
+                AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
+            }
+
+        }
 
 
         public Users? UserLogin(string email, string password)
         {
-            Console.WriteLine($"Attempting to log in with Email: '{email}', Password: '{password}'");
+            AnsiConsole.WriteLine($"Attempting to log in with Email: '{email}', Password: '{password}'");
 
             // Search for a matching user
             var user = users.FirstOrDefault(x => x.Email == email && x.Password == password);
 
             if (user != null)
             {
-                Console.WriteLine("[green]Login successful![/]");
+                AnsiConsole.WriteLine("[green]Login successful![/]");
                 return user;
             }
 
-            Console.WriteLine("[red]Invalid email or password.[/]");
+            AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
             return null;
         }
 

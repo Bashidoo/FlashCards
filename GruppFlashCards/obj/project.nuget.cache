@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "t39yVIdO1/c=",
+  "dgSpecHash": "xfSSC708vhk=",
   "success": true,
   "projectFilePath": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\GruppFlashCards.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Busher\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512"
+    "C:\\Users\\Busher\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\Busher\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
   ],
   "logs": []
 }
