@@ -48,7 +48,7 @@
               "RelativeDocumentMoniker": "Category.cs",
               "ToolTip": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Category.cs",
               "RelativeToolTip": "Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwYAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwgAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-27T16:32:04.486Z",
               "EditorCaption": ""
@@ -75,8 +75,7 @@
               "RelativeToolTip": "Users.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T16:11:17.819Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-25T16:11:17.819Z"
             },
             {
               "$type": "Document",
@@ -88,8 +87,7 @@
               "RelativeToolTip": "FlashCard.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAqwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T15:50:34.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-25T15:50:34.887Z"
             },
             {
               "$type": "Document",
@@ -101,8 +99,7 @@
               "RelativeToolTip": "Utility.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAQwCUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T15:50:14.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-25T15:50:14.066Z"
             },
             {
               "$type": "Document",
@@ -114,8 +111,7 @@
               "RelativeToolTip": "Menu.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T15:49:11.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-25T15:49:11.148Z"
             },
             {
               "$type": "Document",
@@ -127,8 +123,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T12:34:44.815Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-24T12:34:44.815Z"
             }
           ]
         }

@@ -11,7 +11,7 @@ namespace GruppFlashCards
 
         public List<FlashCard> flashCardID = new List<FlashCard>();
 
-        public int categoryID { get; set; };
+        public int categoryID { get; set; } 
 
         public string categoryName { get; set; }
         public Category()
