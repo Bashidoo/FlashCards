@@ -2,80 +2,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.Marshalling;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GruppFlashCards
 {
     public class Library
     {
-
-        public List <FlashCard> flashcards { get; set; } = new List <FlashCard> ();
-        public List <Users> users { get; set; } = new List <Users> ();
-        // implement functions and create instances of Users and FlashCards as a list.
-
-        
-
-        // Show Card
+        public List<FlashCard> Flashcards { get; set; } = new List<FlashCard>();
+        public List<Users> Users { get; set; } = new List<Users>();
 
         public void ShowFlashCards()
         {
-
-            if (!flashcards.Any())
+            if (!Flashcards.Any())
             {
-                AnsiConsole.WriteLine("[red]No flash cards found![/]");
+                AnsiConsole.MarkupLine("[red]No flashcards found![/]");
                 return;
             }
 
-        }
-        // Reviewing card
+            var table = new Table();
+            table.AddColumn("[yellow]Question[/]");
+            table.AddColumn("[green]Answer[/]");
 
-        public void ReviewFlashCards()
-        {
-            
-            if (!flashcards.Any())
+            foreach (var card in Flashcards)
             {
-                AnsiConsole.WriteLine("[red]No flash cards found![/]");
+                table.AddRow(card.Question, card.Answer);
             }
-            else
-            {
-                // Add Logic
-            }
-        }
 
-        
+            AnsiConsole.Write(table);
+        }
 
         public void AddFlashCard(FlashCard card)
         {
-            if (card != null)
-            {
-                flashcards.Add (card);
-            }
-            else
-            {
-                AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
-            }
-
+            Flashcards.Add(card);
         }
-
 
         public Users? UserLogin(string email, string password)
         {
-            AnsiConsole.WriteLine($"Attempting to log in with Email: '{email}', Password: '{password}'");
-
-            // Search for a matching user
-            var user = users.FirstOrDefault(x => x.Email == email && x.Password == password);
-
-            if (user != null)
-            {
-                AnsiConsole.WriteLine("[green]Login successful![/]");
-                return user;
-            }
-
-            AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
-            return null;
+            var user = Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            return user;
         }
 
+        public void ReviewFlashCards()
+        {
+            if (!Flashcards.Any())
+            {
+                AnsiConsole.WriteLine("[red]No flashcards available for review![/]");
+                return;
+            }
+
+            foreach (var card in Flashcards)
+            {
+                AnsiConsole.MarkupLine($"[yellow]Question:[/] {card.Question}");
+                AnsiConsole.MarkupLine($"[green]Answer:[/] {card.Answer}");
+                AnsiConsole.MarkupLine("\n[bold blue]Press any key to continue to the next card.[/]");
+                Console.ReadKey();
+            }
+        }
     }
 }
