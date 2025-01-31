@@ -23,6 +23,10 @@ namespace GruppFlashCards
 
         public DateOnly flashCardInterval { get; set; }
 
+        // Foreign Key
+        public int CategoryID { get; set; }
+
+
         public FlashCard()
         {
             
@@ -43,6 +47,11 @@ namespace GruppFlashCards
         public bool IsDue()
         {
             return DateOnly.FromDateTime(DateTime.Now) >= flashCardInterval;
+        }
+
+        public string ToString()
+        {
+            return $"Name:{flashCardName} ID: {flashCardID}, Question: {flashCardQuestion} "
         }
     }
 }

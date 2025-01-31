@@ -9,14 +9,14 @@ namespace GruppFlashCards
     public class Category
     {
 
-        public List<FlashCard> flashCardID = new List<FlashCard>();
 
         public int categoryID { get; set; } 
 
         public string categoryName { get; set; }
-        public Category()
+        public Category(int categoryid, string categoryname)
         {
-            
+            categoryID = categoryid;
+            categoryName = categoryname;
         }
     }
 }

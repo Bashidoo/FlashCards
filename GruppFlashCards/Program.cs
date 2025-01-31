@@ -6,12 +6,12 @@
         {
             Console.WriteLine("Hello, World!");
 
+          
 
 
 
 
-
-            Library _library = new Library();
+            var _library = new Library();   // Insert lists from Loaded SQL Data --Busher
             bool loggingIn = true;
             while (loggingIn)
             {

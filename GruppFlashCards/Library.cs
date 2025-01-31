@@ -11,11 +11,22 @@ namespace GruppFlashCards
     public class Library
     {
 
-        public List <FlashCard> flashcards { get; set; } = new List <FlashCard> ();
-        public List <Users> users { get; set; } = new List <Users> ();
+        public List <FlashCard> flashcards { get; set; }
+        public List <Users> users { get; set; }
+        public List <Category> categories { get; set; }
+
+
+        // Since we are not going to push sql queries directly from Library. a constructor is needed.
+
+        public Library(List<Users> Users, List<Category> Categories, List<FlashCard> Flashcards)
+        {
+            users = Users;
+            categories = Categories;
+            flashcards = Flashcards;
+        }
         // implement functions and create instances of Users and FlashCards as a list.
 
-        
+
 
         // Show Card
 
@@ -27,30 +38,99 @@ namespace GruppFlashCards
                 AnsiConsole.WriteLine("[red]No flash cards found![/]");
                 return;
             }
-
-        }
-        // Reviewing card
-
-        public void ReviewFlashCards()
-        {
-            
-            if (!flashcards.Any())
-            {
-                AnsiConsole.WriteLine("[red]No flash cards found![/]");
-            }
             else
             {
-                // Add Logic
+
+            }
+          
+
+        }
+
+        // Show Category Table
+        public void ShowCategoryTable()
+        {
+            
+            if (!categories.Any())
+            {
+                AnsiConsole.WriteLine("[red]No categories cards found![/]");
+                return;
+            }
+
+            var categorytable = new Table();
+            categorytable.AddColumn("Category ID");
+            categorytable.AddColumn("Category Name");
+            categorytable.AddColumn("Nr. FlashCards");
+            
+            foreach (var category in categories)
+            {
+            
+                    categorytable.AddRow(category.categoryID.ToString(), 
+                    category.categoryName,
+                    returnFlashCardCountByCategory(category.categoryID).ToString());
+
+            }
+
+            AnsiConsole.Write(categorytable); 
+
+        }
+
+        public int returnFlashCardCountByCategory(int categoryID) // Suiiiiiiiiiii
+        {
+                                     
+                return flashcards.Count(a => a.CategoryID == categoryID);
+
+        }
+        public void ReviewFlashCardsByCategory(int categoryID)
+        {
+            // Add logic First or default
+
+            var categoryExist = categories.FirstOrDefault(x => x.categoryID == categoryID);
+            if (categoryExist == null)
+            {
+                AnsiConsole.WriteLine("[red]Category not found![/]");
+                return;                 
+                    
+            }
+
+            var flashcardInCategory = flashcards.Where(a => a.CategoryID == categoryID && DateOnly.FromDateTime(DateTime.Now) >= a.flashCardInterval).ToList();
+
+            if (flashcardInCategory == null)
+            {
+                AnsiConsole.WriteLine($"[yellow]No flashcards are due for review in category '{categoryExist.categoryName}'.[/]");
+                return;
+            }
+
+            foreach (var flashcard in flashcardInCategory)
+            {
+                AnsiConsole.WriteLine($"[yellow]Question:[/] {flashcard.flashCardQuestion}");
+
+                string userAnswer = Utility.GetValidatedStringInput("Your answer:");
+
+                if (userAnswer.Trim().Equals(flashcard.flashCardAnswer.Trim(), StringComparison.OrdinalIgnoreCase))
+                {
+                    
+                        AnsiConsole.MarkupLine("[green]Correct![/]");
+                        UpdateSpacedRepitition(flashcard, true);
+                    
+
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine($"[red]Incorrect![/] The correct answer is: {flashcard.flashCardAnswer}");
+                    UpdateSpacedRepitition(flashcard, false);
+                }
+                AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.flashCardInterval}[/]");
+
             }
         }
 
-        
+
 
         public void AddFlashCard(FlashCard card)
         {
             if (card != null)
             {
-                flashcards.Add (card);
+                flashcards.Add(card);
             }
             else
             {
@@ -58,7 +138,22 @@ namespace GruppFlashCards
             }
 
         }
+        public void UpdateSpacedRepitition(FlashCard flashcard, bool iscorrect)
+        {
 
+            if (iscorrect)
+            {
+
+                flashcard.flashCardInterval = flashcard.flashCardInterval.AddDays(flashcard.flashCardDifficultyLevel * 2);
+            }
+            else
+            {
+
+            flashcard.flashCardInterval = DateOnly.FromDateTime(DateTime.Now).AddDays(0);
+            }
+
+            AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.flashCardInterval}[/]");
+        }
 
         public Users? UserLogin(string email, string password)
         {
