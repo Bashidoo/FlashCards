@@ -124,17 +124,28 @@ namespace GruppFlashCards
             }
         }
 
-
+        public void RemoveFlashCard(FlashCard card)
+        {
+            if (card != null)
+            {
+                flashcards.Remove(card);
+            }
+            else
+            {
+                AnsiConsole.WriteLine("[red]Invalid FlashCard.[/]");
+            }
+        }
 
         public void AddFlashCard(FlashCard card)
         {
             if (card != null)
             {
                 flashcards.Add(card);
+                AnsiConsole.WriteLine("[Green] FlashCard Added![/]");
             }
             else
             {
-                AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
+                AnsiConsole.WriteLine("[red]Invalid FlashCard.[/]");
             }
 
         }
