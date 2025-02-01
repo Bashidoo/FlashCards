@@ -51,7 +51,7 @@ namespace GruppFlashCards
 
         public string ToString()
         {
-            return $"Name:{flashCardName} ID: {flashCardID}, Question: {flashCardQuestion} "
+            return $"Name:{flashCardName} ID: {flashCardID}, Question: {flashCardQuestion} ";
         }
     }
 }
