@@ -40,7 +40,10 @@ namespace GruppFlashCards
             }
             else
             {
-
+                foreach (var flashcard in flashcards)
+                {
+                    AnsiConsole.WriteLine(flashcard.ToString());
+                }
             }
           
 
@@ -87,14 +90,14 @@ namespace GruppFlashCards
             var categoryExist = categories.FirstOrDefault(x => x.categoryID == categoryID);
             if (categoryExist == null)
             {
-                AnsiConsole.WriteLine("[red]Category not found![/]");
+                AnsiConsole.WriteLine($"[red]Category:{categoryExist.categoryID} not found![/]");
                 return;                 
                     
             }
 
             var flashcardInCategory = flashcards.Where(a => a.CategoryID == categoryID && DateOnly.FromDateTime(DateTime.Now) >= a.flashCardInterval).ToList();
 
-            if (flashcardInCategory == null)
+            if (!flashcardInCategory.Any())
             {
                 AnsiConsole.WriteLine($"[yellow]No flashcards are due for review in category '{categoryExist.categoryName}'.[/]");
                 return;
@@ -160,7 +163,7 @@ namespace GruppFlashCards
             else
             {
 
-            flashcard.flashCardInterval = DateOnly.FromDateTime(DateTime.Now).AddDays(0);
+             flashcard.flashCardInterval = DateOnly.FromDateTime(DateTime.Now).AddDays(0);
             }
 
             AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.flashCardInterval}[/]");

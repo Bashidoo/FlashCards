@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\flashcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:flashcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\library.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -15,20 +15,20 @@
       "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\flashcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:flashcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|c:\\users\\busher\\desktop\\github\\databases\\flashcards\\gruppflashcards\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0AC83F6-94A8-4230-9AB4-3B02D8B71E3B}|GruppFlashCards.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,11 +38,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Category.cs",
               "DocumentMoniker": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Category.cs",
               "RelativeDocumentMoniker": "Category.cs",
@@ -60,13 +60,14 @@
               "RelativeDocumentMoniker": "Library.cs",
               "ToolTip": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Library.cs",
               "RelativeToolTip": "Library.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAAAIYAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAxwDIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T16:21:01.76Z"
+              "WhenOpened": "2025-01-25T16:21:01.76Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Users.cs",
               "DocumentMoniker": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Users.cs",
               "RelativeDocumentMoniker": "Users.cs",
@@ -74,24 +75,24 @@
               "RelativeToolTip": "Users.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T16:11:17.819Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-25T16:11:17.819Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "FlashCard.cs",
               "DocumentMoniker": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\FlashCard.cs",
               "RelativeDocumentMoniker": "FlashCard.cs",
               "ToolTip": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\FlashCard.cs",
               "RelativeToolTip": "FlashCard.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAADUAAABaAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAA0wDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T15:50:34.887Z"
+              "WhenOpened": "2025-01-25T15:50:34.887Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Utility.cs",
               "DocumentMoniker": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Utility.cs",
               "RelativeDocumentMoniker": "Utility.cs",
@@ -103,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Menu.cs",
               "DocumentMoniker": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Menu.cs",
               "RelativeDocumentMoniker": "Menu.cs",
@@ -121,7 +122,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Busher\\Desktop\\Github\\Databases\\FlashCards\\GruppFlashCards\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-24T12:34:44.815Z"
             }
