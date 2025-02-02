@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using GruppFlashCards.Models;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,21 @@ namespace GruppFlashCards
     public class Library
     {
 
-        public List <FlashCard> flashcards { get; set; }
-        public List <Users> users { get; set; }
-        public List <Category> categories { get; set; }
+        private BusherSundayContext _dbContext;
+        public List<User> users { get; set; }
+        public List<Category> categories { get; set; }
+        public List<FlashCard> flashcards { get; set; }
 
 
         // Since we are not going to push sql queries directly from Library. a constructor is needed.
 
-        public Library(List<Users> Users, List<Category> Categories, List<FlashCard> Flashcards)
+        public Library(BusherSundayContext dbContext)
         {
-            users = Users;
-            categories = Categories;
-            flashcards = Flashcards;
+            _dbContext = dbContext;
+            List<GruppFlashCards.Models.User> users = _dbContext.Users.ToList();
+            List<GruppFlashCards.Models.Category> categories = _dbContext.Categories.ToList();
+            List<GruppFlashCards.Models.FlashCard> flashcards = _dbContext.FlashCards.ToList();
+
         }
         // implement functions and create instances of Users and FlashCards as a list.
 
@@ -33,16 +37,21 @@ namespace GruppFlashCards
         public void ShowFlashCards()
         {
 
-            if (!flashcards.Any())
+            var flashCards = _dbContext.FlashCards.ToList();
+            if (_dbContext.FlashCards == null)
             {
                 AnsiConsole.WriteLine("[red]No flash cards found![/]");
                 return;
             }
+            else if (!flashCards.Any())
+            {
+                AnsiConsole.WriteLine("[red]No flash cards found![/]");
+            }
             else
             {
-                foreach (var flashcard in flashcards)
+                foreach (var card in flashCards)
                 {
-                    AnsiConsole.WriteLine(flashcard.ToString());
+                    AnsiConsole.WriteLine($"[blue]ID:{card.FlashCardId} {card.FlashCardName}: {card.FlashCardQuestion}");
                 }
             }
           
@@ -67,9 +76,9 @@ namespace GruppFlashCards
             foreach (var category in categories)
             {
             
-                    categorytable.AddRow(category.categoryID.ToString(), 
-                    category.categoryName,
-                    returnFlashCardCountByCategory(category.categoryID).ToString());
+                    categorytable.AddRow(category.CategoryId.ToString(), 
+                    category.CategoryName,
+                    returnFlashCardCountByCategory(category.CategoryId).ToString());
 
             }
 
@@ -80,36 +89,36 @@ namespace GruppFlashCards
         public int returnFlashCardCountByCategory(int categoryID) // Suiiiiiiiiiii
         {
                                      
-                return flashcards.Count(a => a.CategoryID == categoryID);
+                return flashcards.Count(a => a.CategoryId == categoryID);
 
         }
         public void ReviewFlashCardsByCategory(int categoryID)
         {
             // Add logic First or default
 
-            var categoryExist = categories.FirstOrDefault(x => x.categoryID == categoryID);
+            var categoryExist = _dbContext.Categories.FirstOrDefault(x => x.CategoryId == categoryID);
             if (categoryExist == null)
             {
-                AnsiConsole.WriteLine($"[red]Category:{categoryExist.categoryID} not found![/]");
+                AnsiConsole.WriteLine($"[red]Category:{categoryID} not found![/]");
                 return;                 
                     
             }
 
-            var flashcardInCategory = flashcards.Where(a => a.CategoryID == categoryID && DateOnly.FromDateTime(DateTime.Now) >= a.flashCardInterval).ToList();
+            var flashcardInCategory = _dbContext.FlashCards.Where(a => a.CategoryId == categoryID && DateTime.Now >= a.FlashCardInterval).ToList();
 
             if (!flashcardInCategory.Any())
             {
-                AnsiConsole.WriteLine($"[yellow]No flashcards are due for review in category '{categoryExist.categoryName}'.[/]");
+                AnsiConsole.WriteLine($"[yellow]No flashcards are due for review in category '{categoryExist.CategoryName}'.[/]");
                 return;
             }
 
             foreach (var flashcard in flashcardInCategory)
             {
-                AnsiConsole.WriteLine($"[yellow]Question:[/] {flashcard.flashCardQuestion}");
+                AnsiConsole.WriteLine($"[yellow]Question:[/] {flashcard.FlashCardQuestion}");
 
                 string userAnswer = Utility.GetValidatedStringInput("Your answer:");
 
-                if (userAnswer.Trim().Equals(flashcard.flashCardAnswer.Trim(), StringComparison.OrdinalIgnoreCase))
+                if (userAnswer.Trim().Equals(flashcard.FlashCardAnswer.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
                     
                         AnsiConsole.MarkupLine("[green]Correct![/]");
@@ -119,71 +128,97 @@ namespace GruppFlashCards
                 }
                 else
                 {
-                    AnsiConsole.MarkupLine($"[red]Incorrect![/] The correct answer is: {flashcard.flashCardAnswer}");
+                    AnsiConsole.MarkupLine($"[red]Incorrect![/] The correct answer is: {flashcard.FlashCardAnswer}");
                     UpdateSpacedRepitition(flashcard, false);
                 }
-                AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.flashCardInterval}[/]");
+                AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.FlashCardInterval}[/]");
 
             }
         }
 
-        public void RemoveFlashCard(FlashCard card)
+        public void RemoveFlashCardFromList(int cardID)
         {
-            if (card != null)
+            FlashCard? flashCardExists = _dbContext.FlashCards.FirstOrDefault(x => x.FlashCardId == cardID);
+
+            if (flashCardExists != null)
             {
-                flashcards.Remove(card);
+                _dbContext.FlashCards.Remove(flashCardExists);
+
+                _dbContext.SaveChanges();
+
+
+            }
+            
+        }
+
+
+
+
+
+        // In-memory list
+
+        public void AddFlashCardToLocalList(FlashCard card)
+        {
+            if (_dbContext == null)
+            {
+                Console.WriteLine("Error: Database context is null!");
+                return;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(card.FlashCardAnswer))
+            {
+                card.FlashCardAnswer = "No answer provided";
+            }
+
+            if (card.FlashCardId == 0) // Ensure ID is set
+            {
+                card.FlashCardId = new Random().Next(1, 10000);
+            }
+
+               var categoryExist = _dbContext.Categories.FirstOrDefault(c => c.CategoryId == card.CategoryId);
+
+            if (categoryExist != null)
+            {
+            _dbContext.FlashCards.Add(card);
             }
             else
             {
-                AnsiConsole.WriteLine("[red]Invalid FlashCard.[/]");
+                AnsiConsole.MarkupLine("[red]No Category found! please consider adding card to following category or contact provider to create a new one![/]");
             }
+            int changes = _dbContext.SaveChanges();
+
+            Console.WriteLine($"{changes} record(s) added.");
         }
 
-        public void AddFlashCard(FlashCard card)
-        {
-            if (card != null)
-            {
-                flashcards.Add(card);
-                AnsiConsole.WriteLine("[Green] FlashCard Added![/]");
-            }
-            else
-            {
-                AnsiConsole.WriteLine("[red]Invalid FlashCard.[/]");
-            }
 
-        }
         public void UpdateSpacedRepitition(FlashCard flashcard, bool iscorrect)
         {
 
             if (iscorrect)
             {
 
-                flashcard.flashCardInterval = flashcard.flashCardInterval.AddDays(flashcard.flashCardDifficultyLevel * 2);
+                flashcard.FlashCardInterval = flashcard.FlashCardInterval.AddDays(flashcard.FlashCardDifficultyLevel * 2);
+                _dbContext.SaveChanges();
             }
             else
             {
 
-             flashcard.flashCardInterval = DateOnly.FromDateTime(DateTime.Now).AddDays(0);
+             flashcard.FlashCardInterval = DateTime.Now.AddDays(0);
+                _dbContext.SaveChanges();
             }
 
-            AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.flashCardInterval}[/]");
+            AnsiConsole.MarkupLine($"[blue]Next review for this flashcard is on: {flashcard.FlashCardInterval}[/]");
         }
 
-        public Users? UserLogin(string email, string password)
+        public User? UserLogin(string email, string password)
         {
             AnsiConsole.WriteLine($"Attempting to log in with Email: '{email}', Password: '{password}'");
 
             // Search for a matching user
-            var user = users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            return _dbContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
 
-            if (user != null)
-            {
-                AnsiConsole.WriteLine("[green]Login successful![/]");
-                return user;
-            }
 
-            AnsiConsole.WriteLine("[red]Invalid email or password.[/]");
-            return null;
         }
 
     }
