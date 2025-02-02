@@ -1,4 +1,10 @@
-﻿namespace GruppFlashCards
+﻿using System;
+using System.Linq;
+using GruppFlashCards;
+using GruppFlashCards.Models; 
+using Microsoft.EntityFrameworkCore;
+
+namespace GruppFlashCards
 {
     internal class Program
     {
@@ -6,36 +12,17 @@
         {
             Console.WriteLine("Hello, World!");
 
+            var dBContext = new BusherSundayContext();
+            Library library = new Library(dBContext);
+            Menu menu = new Menu(library);
 
 
+            menu.ShowMainMenu();
 
+            dBContext.SaveChanges();
 
-
-            Library _library = new Library();
-            bool loggingIn = true;
-            while (loggingIn)
-            {
-
-                string userEmail = Utility.GetValidatedStringInput("Please Enter your Email: ").Trim();
-                string password = Utility.GetValidatedStringInput("Enter your password:").Trim();
-
-                Users? LoggedInUser = _library.UserLogin(userEmail, password);
-
-                if (LoggedInUser != null)
-                {
-                    loggingIn = false;
-                    
-                    Console.WriteLine($"Welcome: {LoggedInUser.Email}");
-                  
-
-                }
-                else
-                {
-                    Console.WriteLine("Logging in failed.");
-                }
-
-            }
-
+            dBContext.Dispose();
+  
             // SQL Integration! -------------
         }
     }
