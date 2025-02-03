@@ -51,7 +51,7 @@ namespace GruppFlashCards
             {
                 foreach (var card in flashCards)
                 {
-                    AnsiConsole.WriteLine($"[blue]ID:{card.FlashCardId} {card.FlashCardName}: {card.FlashCardQuestion}");
+                    AnsiConsole.WriteLine($"[blue]ID:{card.FlashCardId} {card.FlashCardName}: {card.FlashCardQuestion} Review Date: {card.FlashCardInterval}");
                 }
             }
           
@@ -59,38 +59,43 @@ namespace GruppFlashCards
         }
 
         // Show Category Table
-        /*public void ShowCategoryTable()
+        public void ShowCategoryTable()
         {
-            
-            if (!_dbContext.Categories.Any())
+            if (_dbContext == null)
             {
-                AnsiConsole.WriteLine("[red]No categories cards found![/]");
+                AnsiConsole.MarkupLine("[red]Error: Database context is not initialized![/]");
                 return;
             }
 
-            var categorytable = new Table();
-            categorytable.AddColumn("Category ID");
-            categorytable.AddColumn("Category Name");
-            categorytable.AddColumn("Nr. FlashCards");
-            
-            foreach (var category in _dbContext.Categories)
+            if (!_dbContext.Categories.Any())
             {
-
-                int flashCardCount = returnFlashCardCountByCategory(category.CategoryId);
-                categorytable.AddRow(category.CategoryId.ToString(), category.CategoryName, flashCardCount.ToString());
-
+                AnsiConsole.MarkupLine("[red]No categories found![/]");
+                return;
             }
 
-            AnsiConsole.Write(categorytable); 
+            var categoryTable = new Table();
+            categoryTable.AddColumn("Category ID");
+            categoryTable.AddColumn("Category Name");
+            categoryTable.AddColumn("Nr. FlashCards");
+            var categories = _dbContext.Categories.ToList(); // Load data first
+            foreach (var category in categories)
+            { 
+                int flashCardCount = returnFlashCardCountByCategory(category.CategoryId);
+                categoryTable.AddRow(category.CategoryId.ToString(), category.CategoryName, flashCardCount.ToString());
+            }
 
+            AnsiConsole.Write(categoryTable);
         }
-        */
-        public int returnFlashCardCountByCategory(int categoryID) // Suiiiiiiiiiii
+
+        private int returnFlashCardCountByCategory(int categoryId)
         {
-                                     
-                return _dbContext.FlashCards.Count(a => a.CategoryId == categoryID);
-
+            if (_dbContext == null)
+            {
+                return 0; // Avoid null reference crash
+            }
+            return _dbContext.FlashCards.Count(f => f.CategoryId == categoryId);
         }
+
         public void ReviewFlashCardsByCategory(int categoryID)
         {
             // Add logic First or default

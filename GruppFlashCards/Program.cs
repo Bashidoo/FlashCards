@@ -10,7 +10,7 @@ namespace GruppFlashCards
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            
 
             var dBContext = new BusherSundayContext();
             Library library = new Library(dBContext);

@@ -80,7 +80,7 @@ namespace GruppFlashCards
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("[yellow]Select an option:[/]")
-                        .AddChoices("1. Add Flashcard", "2. Show Flashcards", "3. Review Flashcards", "4. Logout", "5. Exit", "6. Remove Flashcard")
+                        .AddChoices("1. Add Flashcard", "2. Show Flashcards", "3. Review Flashcards", "4. Logout", "5. Exit", "6. Remove Flashcard", "7. Show Categories")
                 );
 
                 switch (choice)
@@ -89,7 +89,8 @@ namespace GruppFlashCards
                         AddFlashCard();
                         break;
                     case "2. Show Flashcards":
-                        _library.ShowFlashCards();                    
+                        _library.ShowFlashCards();
+                        
                         Console.ReadKey();
                         break;
                     case "3. Review Flashcards":
@@ -107,6 +108,10 @@ namespace GruppFlashCards
                         return;
                     case "6. Remove Flashcard":
                         RemoveFlashCard();
+                        break;
+                    case "7. Show Categories":
+                        _library.ShowCategoryTable();
+                        Console.ReadKey();
                         break;
                     default:
                         AnsiConsole.MarkupLine("[red]Invalid option, please try again.[/]");
