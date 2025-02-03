@@ -12,4 +12,16 @@ public partial class User
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    public User(int userid, string username, string email, string password)
+    {
+        UserId = userid;
+        UserName = username;
+        Email = email;
+        Password = password;
+    }
+    public User()
+    {
+        
+    }
 }

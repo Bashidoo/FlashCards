@@ -6,6 +6,7 @@ using Spectre.Console;
 using System;
 using GruppFlashCards.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace GruppFlashCards
 {
@@ -26,69 +27,90 @@ namespace GruppFlashCards
                 return;
             }
             bool running = true;
-            bool loggedin = false;
+            User? UserCurrentSession = null;
 
-            while (!loggedin)
+            while (UserCurrentSession == null)
             {
-                string userEmail = Utility.GetValidatedStringInput("Type your Email:");
-                string userPassword = Utility.GetValidatedStringInput("Type your password:");
-                var UserCurrentSession = _library.UserLogin(userEmail, userPassword);
+                var choice1 = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[cyan]What would you like to do?[/]")
+                        .AddChoices("Create User", "Login", "Exit"));
 
-
-
-                if (UserCurrentSession != null)
+                switch (choice1)
                 {
-                    loggedin = true;
-                    while (running)
-                    {
-                        Console.Clear();
-                        AnsiConsole.Markup($"[bold cyan]Welcome {UserCurrentSession?.UserName} to Flashcards App[/]\n");
+                    case "Create User":
+                        _library.AskInfoForUserOBJ();
+                        break;
 
-                        var choice = AnsiConsole.Prompt(
-                            new SelectionPrompt<string>()
-                                .Title("[yellow]Select an option:[/]")
-                                .AddChoices("1. Add Flashcard", "2. Show Flashcards", "3. Review Flashcards", "4. Logout", "5. Exit", "6. Remove Flashcard")
-                        );
+                    case "Login":
+                        string email = Utility.GetValidatedStringInput("Please enter your [yellow]User Email[/]:");
+                        string password = Utility.GetValidatedStringInput("Please enter your [yellow]Password[/]:");
 
-                        switch (choice)
+                        AnsiConsole.Status().Start("Logging in...", ctx =>
                         {
-                            case "1. Add Flashcard":
-                                AddFlashCard();
-                                break;
-                            case "2. Show Flashcards":
-                                _library.ShowFlashCards();
-                                Console.ReadKey();
-                                break;
-                            case "3. Review Flashcards":
-                                int categoryIdInput = Utility.GetValidatedNumberInput("Type Category ID:");
-                                _library.ReviewFlashCardsByCategory(categoryIdInput);
-                                Console.ReadKey();
-                                break;
-                            case "4. Logout":
-                                loggedin = false;
-                                running = false;
-                                UserCurrentSession = null;
-                                ShowMainMenu();
-                                break;
-                            case "5. Exit":
-                                running = false;
+                            UserCurrentSession = _library.UserLogin(email, password);
+                        });
 
-                                break;
-                            default:
-                                AnsiConsole.MarkupLine("[red]Invalid option, please try again.[/]");
-                                break;
-                            case "6. Remove Flashcard":
-                                RemoveFlashCard();
-                                break;
+                        if (UserCurrentSession == null)
+                        {
+                            AnsiConsole.MarkupLine("[red]Invalid credentials, please try again.[/]");
                         }
-                    }
+                        break;
+
+                    case "Exit":
+                        AnsiConsole.MarkupLine("[green]Thank you for using FlashCard app. Goodbye![/]");
+                        return; // Exit program
                 }
-                else
+            }
+
+
+            RunMainMenu(UserCurrentSession);
+        }
+
+
+        private void RunMainMenu(User UserCurrentSession)
+        {
+            bool running = true;
+
+            while (running)
+            {
+                Console.Clear();
+                AnsiConsole.Markup($"[bold cyan]Welcome {UserCurrentSession.UserName} to Flashcards App[/]\n");
+
+                var choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[yellow]Select an option:[/]")
+                        .AddChoices("1. Add Flashcard", "2. Show Flashcards", "3. Review Flashcards", "4. Logout", "5. Exit", "6. Remove Flashcard")
+                );
+
+                switch (choice)
                 {
-                    AnsiConsole.MarkupLine("[red]Invalid Login, please try again.[/]");
-                    userEmail = Utility.GetValidatedStringInput("Type your Email:");
-                    userPassword = Utility.GetValidatedStringInput("Type your password:");
-                    UserCurrentSession = _library.UserLogin(userEmail, userPassword);
+                    case "1. Add Flashcard":
+                        AddFlashCard();
+                        break;
+                    case "2. Show Flashcards":
+                        _library.ShowFlashCards();                    
+                        Console.ReadKey();
+                        break;
+                    case "3. Review Flashcards":
+                        int categoryIdInput = Utility.GetValidatedNumberInput("Type Category ID:");
+                        _library.ReviewFlashCardsByCategory(categoryIdInput);
+                        Console.ReadKey();
+                        break;
+                    case "4. Logout":
+                        AnsiConsole.MarkupLine("[yellow]Logging out...[/]");
+                        UserCurrentSession = null;
+                        ShowMainMenu();
+                        break; // Back to login menu
+                    case "5. Exit":
+                        running = false;
+                        return;
+                    case "6. Remove Flashcard":
+                        RemoveFlashCard();
+                        break;
+                    default:
+                        AnsiConsole.MarkupLine("[red]Invalid option, please try again.[/]");
+                        break;
                 }
             }
         }

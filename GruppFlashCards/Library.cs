@@ -59,10 +59,10 @@ namespace GruppFlashCards
         }
 
         // Show Category Table
-        public void ShowCategoryTable()
+        /*public void ShowCategoryTable()
         {
             
-            if (!categories.Any())
+            if (!_dbContext.Categories.Any())
             {
                 AnsiConsole.WriteLine("[red]No categories cards found![/]");
                 return;
@@ -73,23 +73,22 @@ namespace GruppFlashCards
             categorytable.AddColumn("Category Name");
             categorytable.AddColumn("Nr. FlashCards");
             
-            foreach (var category in categories)
+            foreach (var category in _dbContext.Categories)
             {
-            
-                    categorytable.AddRow(category.CategoryId.ToString(), 
-                    category.CategoryName,
-                    returnFlashCardCountByCategory(category.CategoryId).ToString());
+
+                int flashCardCount = returnFlashCardCountByCategory(category.CategoryId);
+                categorytable.AddRow(category.CategoryId.ToString(), category.CategoryName, flashCardCount.ToString());
 
             }
 
             AnsiConsole.Write(categorytable); 
 
         }
-
+        */
         public int returnFlashCardCountByCategory(int categoryID) // Suiiiiiiiiiii
         {
                                      
-                return flashcards.Count(a => a.CategoryId == categoryID);
+                return _dbContext.FlashCards.Count(a => a.CategoryId == categoryID);
 
         }
         public void ReviewFlashCardsByCategory(int categoryID)
@@ -146,12 +145,59 @@ namespace GruppFlashCards
 
                 _dbContext.SaveChanges();
 
+                AnsiConsole.MarkupLine("[green]Flash card removed![/]");
 
+            }
+            else
+            {
+                AnsiConsole.MarkupLine($"[red]Incorrect! Flash card ID: {flashCardExists.FlashCardId}");
             }
             
         }
 
+        public void AddUser(User user)
+        {
 
+            if (user != null)
+            {
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+                AnsiConsole.MarkupLine("[green]User added![/]");
+            }
+            else
+            {
+                AnsiConsole.Markup($"[red]Could not add user![/]");
+            }
+        }
+
+        public void AskInfoForUserOBJ()
+        {
+           
+
+
+            int id = Utility.GetValidatedNumberInput("Please type your ID:");
+            string? name = Utility.GetValidatedStringInput("Please type your name:");          
+            string? email = Utility.GetValidatedStringInput("Please type email:");
+            string? password = Utility.GetValidatedStringInput("Please type your desired password:");
+
+            var creatingUserOBJ = new User(id, name, email, password);
+
+
+            User? checkingUserCredentials = _dbContext.Users.FirstOrDefault(x => x.UserId == creatingUserOBJ.UserId || x.Email == creatingUserOBJ.Email);
+
+            if (checkingUserCredentials != null)
+            {
+                AnsiConsole.Markup($"[red]User with same credential exists. Could not add user![/]");
+            }
+            else
+            {
+                AddUser(creatingUserOBJ);
+               
+            }
+
+
+
+        }
 
 
 
