@@ -10,4 +10,14 @@ public partial class Category
     public string CategoryName { get; set; } = null!;
 
     public virtual ICollection<FlashCard> FlashCards { get; set; } = new List<FlashCard>();
+    public Category(int categoryid, string categoryname)
+    {
+        CategoryId = categoryid;
+        CategoryName = categoryname;
+        FlashCards = new List<FlashCard>();
+    }
+    public Category()
+    {
+        
+    }
 }

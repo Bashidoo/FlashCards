@@ -153,3 +153,4 @@ C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\ne
 C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.pdb
 C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.genruntimeconfig.cache
 C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\ref\GruppFlashCards.dll
+C:\Users\Busher\Desktop\Github\Databases\FlashCards\GruppFlashCards\obj\Debug\net8.0\GruppFlashCards.csproj.ResolveComReference.cache

@@ -1,4 +1,5 @@
 ﻿using GruppFlashCards.Models;
+using Microsoft.EntityFrameworkCore;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ namespace GruppFlashCards
         public List<Category> categories { get; set; }
         public List<FlashCard> flashcards { get; set; }
 
-
         // Since we are not going to push sql queries directly from Library. a constructor is needed.
 
         public Library(BusherSundayContext dbContext)
@@ -26,9 +26,14 @@ namespace GruppFlashCards
             List<GruppFlashCards.Models.User> users = _dbContext.Users.ToList();
             List<GruppFlashCards.Models.Category> categories = _dbContext.Categories.ToList();
             List<GruppFlashCards.Models.FlashCard> flashcards = _dbContext.FlashCards.ToList();
-
+            LoadCategories();
         }
         // implement functions and create instances of Users and FlashCards as a list.
+        private void LoadCategories()
+        {
+            categories = _dbContext.Categories.ToList();
+        }
+
 
 
 
@@ -87,6 +92,7 @@ namespace GruppFlashCards
             AnsiConsole.Write(categoryTable);
         }
 
+
         private int returnFlashCardCountByCategory(int categoryId)
         {
             if (_dbContext == null)
@@ -139,6 +145,20 @@ namespace GruppFlashCards
 
             }
         }
+        public void AddUserToList(User user)
+        {
+            var userExists = _dbContext.Users.FirstOrDefault(x => x.Email == user.Email);
+            if (userExists != null)
+            {
+                Console.WriteLine("User with same email exists");
+            }
+            else if (user != null)
+            {
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+                Console.WriteLine("User Added!");
+            }
+        }
 
         public void RemoveFlashCardFromList(int cardID)
         {
@@ -160,6 +180,23 @@ namespace GruppFlashCards
             
         }
 
+        public void RemoveCategoryFromList(int categoryID)
+        {
+            Category? categoryExists= _dbContext.Categories.FirstOrDefault(x => x.CategoryId == categoryID);
+
+            if ( categoryExists != null)
+            {
+                _dbContext.Categories.Remove(categoryExists);
+                _dbContext.SaveChanges();
+                MessageBox.Show("Category Removed!");
+            }
+            else
+            {
+                MessageBox.Show("Incorrect Category!");
+            }
+
+        }
+
         public void AddUser(User user)
         {
 
@@ -175,17 +212,32 @@ namespace GruppFlashCards
             }
         }
 
+        public void AddCategory(Category category)
+        {
+
+            if (categories != null)
+            {
+                _dbContext.Categories.Add(category);
+                _dbContext.SaveChanges();
+                AnsiConsole.MarkupLine("[green]category added![/]");
+            }
+            else
+            {
+                AnsiConsole.Markup($"[red]Could not add user![/]");
+            }
+        }
+
         public void AskInfoForUserOBJ()
         {
            
 
 
-            int id = Utility.GetValidatedNumberInput("Please type your ID:");
+           
             string? name = Utility.GetValidatedStringInput("Please type your name:");          
             string? email = Utility.GetValidatedStringInput("Please type email:");
             string? password = Utility.GetValidatedStringInput("Please type your desired password:");
 
-            var creatingUserOBJ = new User(id, name, email, password);
+            var creatingUserOBJ = new User(name, email, password);
 
 
             User? checkingUserCredentials = _dbContext.Users.FirstOrDefault(x => x.UserId == creatingUserOBJ.UserId || x.Email == creatingUserOBJ.Email);
@@ -206,9 +258,22 @@ namespace GruppFlashCards
 
 
 
-        // In-memory list
+        public void AddCategoryToList(Category category)
+        {
+            var categoryExist = _dbContext.Categories.FirstOrDefault(c => c.CategoryId == category.CategoryId);
 
-        public void AddFlashCardToLocalList(FlashCard card)
+            if (categoryExist != null)
+            {
+                MessageBox.Show("The following categoryID is taken!");
+            }
+            else if (categoryExist == null)
+            {
+                _dbContext.Categories.Add(category);
+            }
+            _dbContext.SaveChanges();
+        }
+
+        public void AddFlashCardToList(FlashCard card)
         {
             if (_dbContext == null)
             {
@@ -246,7 +311,7 @@ namespace GruppFlashCards
         public void UpdateSpacedRepitition(FlashCard flashcard, bool iscorrect)
         {
 
-            if (iscorrect)
+            if (iscorrect == true)
             {
 
                 flashcard.FlashCardInterval = flashcard.FlashCardInterval.AddDays(flashcard.FlashCardDifficultyLevel * 2);

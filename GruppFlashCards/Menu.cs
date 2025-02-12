@@ -26,7 +26,7 @@ namespace GruppFlashCards
                 Console.WriteLine("Library is not initialized.");
                 return;
             }
-            bool running = true;
+           // bool running = true;
             User? UserCurrentSession = null;
 
             while (UserCurrentSession == null)
@@ -133,7 +133,7 @@ namespace GruppFlashCards
 
          
                 FlashCard card = new FlashCard(name, description, question, answer, category);
-                _library.AddFlashCardToLocalList(card);
+                _library.AddFlashCardToList(card);
        
           
            
